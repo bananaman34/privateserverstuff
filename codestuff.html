@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Turtle</title>
+    <script>
+        function sendCommand(command) {
+            fetch('http://<TURTLE_IP>:8080', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+                body: command
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('response').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Control Turtle</h1>
+    <button onclick="sendCommand('moveForward')">Move Forward</button>
+    <button onclick="sendCommand('turnLeft')">Turn Left</button>
+    <button onclick="sendCommand('turnRight')">Turn Right</button>
+    <p id="response"></p>
+</body>
+</html>
